@@ -7,6 +7,8 @@
     <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js Library untuk Grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
@@ -582,7 +584,7 @@
                 </div>
                 <div class="form-group">
                     <label>Password Guru</label>
-                    <input type="password" id="guru-pass" class="form-control" placeholder="Masukan Password" required>
+                    <input type="password" id="guru-pass" class="form-control" placeholder="Default: guru123" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
                     Masuk Portal Guru <i class="fa-solid fa-arrow-right"></i>
@@ -596,17 +598,17 @@
                 </div>
                 <div class="form-group">
                     <label>Username (USN) Siswa</label>
-                    <input type="text" id="siswa-usn" class="form-control" placeholder="Masukan Username" required>
+                    <input type="text" id="siswa-usn" class="form-control" placeholder="contoh: andisaputra" required>
                 </div>
                 <div class="form-group">
                     <label>Password Siswa</label>
-                    <input type="password" id="siswa-pass" class="form-control" placeholder="Masukkan Password" required>
+                    <input type="password" id="siswa-pass" class="form-control" placeholder="Masukkan password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
                     Masuk Portal Siswa <i class="fa-solid fa-arrow-right"></i>
                 </button>
                 <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px; text-align: center;">
-                    Masukan USN Contoh: <b>andisaputra</b> | Pass <b>siswa123</b>
+                    Uji Coba: USN <b>andisaputra</b> / Pass <b>siswa123</b>
                 </p>
             </form>
         </div>
@@ -668,6 +670,40 @@
 
                 <!-- Tab Absensi Guru -->
                 <div id="guru-tab-absensi">
+                    <!-- RINGKASAN STATISTIK PRESENSI -->
+                    <div class="stats-grid" style="margin-bottom: 16px;">
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--success-light); color: var(--success);"><i class="fa-solid fa-user-check"></i></div>
+                            <p>TOTAL HADIR</p>
+                            <h3 id="rekap-total-hadir" style="color: var(--success);">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--warning-light); color: var(--warning);"><i class="fa-solid fa-user-clock"></i></div>
+                            <p>TOTAL IZIN</p>
+                            <h3 id="rekap-total-izin" style="color: var(--warning);">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--info-light); color: var(--info);"><i class="fa-solid fa-bed"></i></div>
+                            <p>TOTAL SAKIT</p>
+                            <h3 id="rekap-total-sakit" style="color: var(--info);">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--danger-light); color: var(--danger);"><i class="fa-solid fa-user-xmark"></i></div>
+                            <p>TOTAL ALPA</p>
+                            <h3 id="rekap-total-alpa" style="color: var(--danger);">0</h3>
+                        </div>
+                    </div>
+
+                    <!-- GRAFIK KEHADIRAN SISWA PER KELAS -->
+                    <div class="card" style="margin-bottom: 16px;">
+                        <h3 style="font-weight: 800; font-size: 13px; color: var(--primary); margin-bottom: 12px;">
+                            <i class="fa-solid fa-chart-column"></i> GRAFIK TINGKAT KEHADIRAN PER KELAS (%)
+                        </h3>
+                        <div style="position: relative; height: 220px; width: 100%;">
+                            <canvas id="absensiChart"></canvas>
+                        </div>
+                    </div>
+
                     <div class="card">
                         <div class="filter-banner">
                             <div class="filter-header">
@@ -699,9 +735,14 @@
                                     <label>Tanggal Pertemuan</label>
                                     <input type="date" id="input-tanggal-guru" class="form-control" onchange="renderGuruAbsensi()">
                                 </div>
-                                <button type="button" class="btn btn-success" style="width: 100%; padding: 8px;" onclick="setSemuaHadir()">
-                                    <i class="fa-solid fa-check-double"></i> Set Semua Hadir
-                                </button>
+                                <div class="grid-form-2">
+                                    <button type="button" class="btn btn-secondary" style="padding: 8px;" onclick="setSemuaHadir()">
+                                        <i class="fa-solid fa-check-double"></i> Set Semua Hadir
+                                    </button>
+                                    <button type="button" class="btn btn-primary" style="padding: 8px;" onclick="simpanPresensiGuru()">
+                                        <i class="fa-solid fa-floppy-disk"></i> Simpan Presensi Hari Ini
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -713,7 +754,7 @@
                                         <th>Rombel Kelas</th>
                                         <th>Nama Siswa</th>
                                         <th>Username (USN)</th>
-                                        <th>Status Kehadiran Pertemuan</th>
+                                        <th>Keterangan Kehadiran</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-absensi-guru"></tbody>
@@ -1174,7 +1215,7 @@
                                     <tr>
                                         <th>Tanggal Pertemuan</th>
                                         <th>Mata Pelajaran</th>
-                                        <th>Status Kehadiran</th>
+                                        <th>Keterangan Kehadiran</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-absensi-siswa"></tbody>
@@ -1292,7 +1333,6 @@
             { id: '4', kelas: 'XI MIPA 4', name: 'Doni Pratama', usn: 'donipratama', pass: 'siswa123' }
         ];
 
-        // 12 JADWAL PERTEMUAN DARI GAMBAR TERTERA
         const DEFAULT_SCHEDULES = [
             { id: '1', hari: 'Senin', kelas: 'XI MIPA 1', jam: '07.00 - 08.40', mapel: 'Informatika', ruang: 'M2.03.013' },
             { id: '2', hari: 'Senin', kelas: 'XI MIPA 3', jam: '08.40 - 10.20', mapel: 'Informatika', ruang: 'M2.03.013' },
@@ -1319,6 +1359,7 @@
         let guruPassword = localStorage.getItem('inf_guru_pass') || 'guru123';
 
         let currentUser = null;
+        let absensiChartInstance = null;
 
         document.getElementById('input-tanggal-guru').valueAsDate = new Date();
 
@@ -1437,13 +1478,17 @@
 
             container.querySelectorAll('[id^="' + view + '-tab-"]').forEach(t => t.classList.add('hidden'));
             document.getElementById(`${view}-tab-${tabName}`).classList.remove('hidden');
+
+            if (view === 'guru' && tabName === 'absensi') {
+                renderGuruAbsensi();
+            }
         }
 
         function handleMobileSelectNav(view, tabName) {
             switchTab(view, tabName, null);
         }
 
-        // --- GURU LOGIC ---
+        // --- GURU LOGIC (REKAP PRESENSI & GRAFIK) ---
         function renderGuruAbsensi() {
             const date = document.getElementById('input-tanggal-guru').value;
             const semester = document.getElementById('guru-semester-filter').value;
@@ -1456,9 +1501,17 @@
                 filteredStudents = students.filter(s => s.kelas === filterKelas);
             }
 
+            let cntHadir = 0, cntIzin = 0, cntSakit = 0, cntAlpa = 0;
+
             filteredStudents.forEach((s, idx) => {
                 const key = `${semester}_${date}_${s.id}`;
                 const cur = attendance[key] || '';
+
+                if (cur === 'Hadir') cntHadir++;
+                else if (cur === 'Izin') cntIzin++;
+                else if (cur === 'Sakit') cntSakit++;
+                else if (cur === 'Alpa') cntAlpa++;
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="text-center">${idx+1}</td>
@@ -1475,6 +1528,21 @@
                 `;
                 tbody.appendChild(tr);
             });
+
+            // Update Angka Summary Statistik
+            document.getElementById('rekap-total-hadir').innerText = cntHadir;
+            document.getElementById('rekap-total-izin').innerText = cntIzin;
+            document.getElementById('rekap-total-sakit').innerText = cntSakit;
+            document.getElementById('rekap-total-alpa').innerText = cntAlpa;
+
+            // Render Grafik Chart Kehadiran per Kelas
+            renderAbsensiChart(semester);
+        }
+
+        function simpanPresensiGuru() {
+            saveData();
+            alert('Presensi rekap kehadiran berhasil disimpan ke sistem!');
+            renderGuruAbsensi();
         }
 
         function setSemuaHadir() {
@@ -1494,13 +1562,58 @@
 
             saveData();
             renderGuruAbsensi();
-            alert('Semua siswa berhasil ditandai Hadir!');
+            alert('Semua siswa pada filter berhasil ditandai Hadir!');
         }
 
         function setAttendance(key, status) {
             attendance[key] = status;
             saveData();
             renderGuruAbsensi();
+        }
+
+        function renderAbsensiChart(semester) {
+            const listKelas = ['XI MIPA 1', 'XI MIPA 2', 'XI MIPA 3', 'XI MIPA 4', 'XI MIPA 5', 'XI MIPA 6'];
+            const dataPersentase = listKelas.map(k => {
+                const siswaKelas = students.filter(s => s.kelas === k);
+                if (siswaKelas.length === 0) return 0;
+                const totalScore = siswaKelas.reduce((sum, s) => sum + getSiswaHadirScore(s.id, semester), 0);
+                return Math.round(totalScore / siswaKelas.length);
+            });
+
+            const ctx = document.getElementById('absensiChart').getContext('2d');
+            if (absensiChartInstance) {
+                absensiChartInstance.destroy();
+            }
+
+            absensiChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: listKelas,
+                    datasets: [{
+                        label: 'Persentase Kehadiran (%)',
+                        data: dataPersentase,
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 6,
+                        barThickness: 24
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) { return value + '%'; }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
         }
 
         function renderGuruNilai() {
