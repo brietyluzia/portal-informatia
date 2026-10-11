@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal Informatika - Akhmad Azmi Rizkullah, S.Pd., M.Pd., Gr.</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --bg-main: #f8fafc;
+            --surface: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --info: #06b6d4;
+            --info-light: #cff4fc;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        * { 
+            box-sizing: border-box !important; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .hidden { display: none !important; }
+
+        a, button, input, select, textarea, .card, .tab-btn {
+            transition: all 0.2s ease;
+        }
+
+        /* LOGIN SCREEN */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            padding: 16px;
+        }
+        .login-box {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .login-header .icon-box {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        .role-tabs {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .role-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        .role-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .form-control {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            outline: none;
+            font-size: 12px;
+            background: white;
+            color: var(--text-dark);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .login-alert {
+            background: var(--danger-light);
+            color: var(--danger);
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #fca5a5;
+            text-align: left;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-secondary { background: #e2e8f0; color: var(--text-dark); }
+        .btn-danger { background: var(--danger-light); color: var(--danger); }
+        .btn-danger:hover { background: #fca5a5; }
+
+        /* HEADER */
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            gap: 12px;
+            width: 100%;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .header-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .header-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-dark) !important;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-subtitle {
+            font-size: 10px;
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .user-detail {
+            text-align: right;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 130px;
+        }
+
+        .user-detail .name {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-dark) !important;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-detail .role {
+            font-size: 9px;
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        main {
+            padding: 14px;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 6px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .mobile-nav-select {
+            display: none;
+            margin-bottom: 16px;
+            background: white;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card-compact {
+            padding: 12px;
+            border-radius: var(--radius-md);
+        }
+
+        .filter-banner {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #f1f5f9;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .filter-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .filter-group-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .filter-item label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* RING KEHADIRAN & STATS */
+        .dashboard-hero {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .attendance-ring-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .circle-chart {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 6px 0;
+        }
+        .circle-chart svg {
+            width: 110px;
+            height: 110px;
+            transform: rotate(-90deg);
+        }
+        .circle-chart circle {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+        }
+        .circle-bg { stroke: #e2e8f0; }
+        .circle-progress {
+            stroke: var(--primary);
+            stroke-dasharray: 282.7;
+            stroke-dashoffset: 282.7;
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+        .circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .circle-text .percent { font-size: 18px; font-weight: 800; color: var(--text-dark); }
+        .circle-text .sub { font-size: 9px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+        .stat-card {
+            background: white;
+            padding: 14px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .stat-card .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .stat-card h3 { font-size: 20px; font-weight: 800; color: var(--text-dark); }
+        .stat-card p { font-size: 10px; color: var(--text-muted); font-weight: 700; }
+
+        /* TABLES */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            -webkit-overflow-scrolling: touch;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; background: white; }
+        
+        th { 
+            background: #f8fafc; 
+            font-weight: 700; 
+            color: var(--text-muted); 
+            text-align: center !important; 
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            vertical-align: middle;
+            color: var(--text-dark) !important;
+        }
+
+        tbody tr:hover { background-color: #f8fafc; }
+
+        .text-left { text-align: left !important; }
+        .text-center { text-align: center !important; }
+
+        .status-btn-group { display: flex; gap: 4px; justify-content: center; }
+
+        .status-btn {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .status-btn.selected-Hadir { background: var(--success); color: white; border-color: var(--success); }
+        .status-btn.selected-Izin { background: var(--warning); color: white; border-color: var(--warning); }
+        .status-btn.selected-Sakit { background: var(--info); color: white; border-color: var(--info); }
+        .status-btn.selected-Alpa { background: var(--danger); color: white; border-color: var(--danger); }
+
+        .badge {
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .badge-success { background: var(--success-light); color: #065f46; }
+        .badge-kelas { 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            font-weight: 800;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        footer {
+            background: white;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 14px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 16px;
+        }
+
+        .grid-form-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) { 
+            .dashboard-hero { grid-template-columns: 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .tabs-nav { display: none !important; }
+            .mobile-nav-select { display: block !important; }
+            .filter-group-2 { grid-template-columns: 1fr; }
+            .user-detail { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+                <h2 style="font-weight: 800; font-size: 20px;">Portal Informatika</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 600;">Akhmad Azmi Rizkullah, S.Pd., M.Pd., Gr.</p>
+            </div>
+
+            <div class="role-tabs">
+                <button type="button" class="role-btn active" onclick="switchRole('guru')">
+                    <i class="fa-solid fa-user-tie"></i> GURU
+                </button>
+                <button type="button" class="role-btn" onclick="switchRole('siswa')">
+                    <i class="fa-solid fa-user-graduate"></i> SISWA
+                </button>
+            </div>
+
+            <!-- Form Guru -->
+            <form id="form-guru" onsubmit="handleLoginGuru(event)">
+                <div id="guru-alert" class="login-alert hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i> <span id="guru-alert-text"></span>
+                </div>
+                <div class="form-group">
+                    <label>Password Guru</label>
+                    <input type="password" id="guru-pass" class="form-control" placeholder="Masukan Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    Masuk Portal Guru <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Form Siswa -->
+            <form id="form-siswa" class="hidden" onsubmit="handleLoginSiswa(event)">
+                <div id="siswa-alert" class="login-alert hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i> <span id="siswa-alert-text"></span>
+                </div>
+                <div class="form-group">
+                    <label>Username (USN) Siswa</label>
+                    <input type="text" id="siswa-usn" class="form-control" placeholder="Masukan Username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password Siswa</label>
+                    <input type="password" id="siswa-pass" class="form-control" placeholder="Masukkan Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    Masuk Portal Siswa <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px; text-align: center;">
+                    Masukan USN Contoh: <b>andisaputra</b> | Pass <b>siswa123</b>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboard-screen" class="hidden">
+        <header>
+            <div class="header-left">
+                <div class="header-logo">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="header-info">
+                    <div class="header-title">Portal Informatika</div>
+                    <div class="header-subtitle">Akhmad Azmi Rizkullah, S.Pd., M.Pd., Gr.</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-detail">
+                    <div id="user-name" class="name">-</div>
+                    <div id="user-role" class="role">-</div>
+                </div>
+                <button onclick="logout()" class="btn btn-danger" style="padding: 6px 10px; border-radius: 8px;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- DASHBOARD GURU -->
+            <div id="guru-view" class="hidden">
+                
+                <!-- DROPDOWN MENU MOBILE -->
+                <div class="mobile-nav-select">
+                    <label style="font-size: 11px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                        <i class="fa-solid fa-compass"></i> NAVIGASI HALAMAN GURU:
+                    </label>
+                    <select id="guru-mobile-select" class="form-control" onchange="handleMobileSelectNav('guru', this.value)">
+                        <option value="absensi">📋 Rekap Absensi Siswa</option>
+                        <option value="nilai">📝 Input Rapor Penilaian</option>
+                        <option value="tugas">📌 Kelola Tugas & Rombel Kelas</option>
+                        <option value="hasil-tugas">📁 Pemeriksaan Hasil Tugas Siswa</option>
+                        <option value="siswa">👥 Data Akun Login Siswa</option>
+                        <option value="jadwal">📅 Kelola Jadwal Pelajaran</option>
+                        <option value="pengaturan">⚙️ Pengaturan Password Guru</option>
+                    </select>
+                </div>
+
+                <!-- TAB MENU LAPTOP -->
+                <div class="tabs-nav">
+                    <div class="tab-btn active" onclick="switchTab('guru', 'absensi', this)">Rekap Absensi</div>
+                    <div class="tab-btn" onclick="switchTab('guru', 'nilai', this)">Input Penilaian</div>
+                    <div class="tab-btn" onclick="switchTab('guru', 'tugas', this)">Kelola Tugas</div>
+                    <div class="tab-btn" onclick="switchTab('guru', 'hasil-tugas', this)">Pemeriksaan Tugas Siswa</div>
+                    <div class="tab-btn" onclick="switchTab('guru', 'siswa', this)">Data Akun Siswa</div>
+                    <div class="tab-btn" onclick="switchTab('guru', 'jadwal', this)">Kelola Jadwal Pelajaran</div>
+                    <div class="tab-btn" onclick="switchTab('guru', 'pengaturan', this)">Pengaturan Akun</div>
+                </div>
+
+                <!-- Tab Absensi Guru -->
+                <div id="guru-tab-absensi">
+                    <div class="card">
+                        <div class="filter-banner">
+                            <div class="filter-header">
+                                <i class="fa-solid fa-filter"></i> FILTER REKAP ABSENSI SISWA
+                            </div>
+                            <div class="filter-controls">
+                                <div class="filter-group-2">
+                                    <div class="filter-item">
+                                        <label>Semester</label>
+                                        <select id="guru-semester-filter" class="form-control" onchange="renderGuruAbsensi()">
+                                            <option value="Semester 1">Semester 1 (Ganjil)</option>
+                                            <option value="Semester 2">Semester 2 (Genap)</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-item">
+                                        <label>Rombel Kelas</label>
+                                        <select id="filter-kelas-absensi" class="form-control" onchange="renderGuruAbsensi()">
+                                            <option value="semua">Semua Rombel MIPA</option>
+                                            <option value="XI MIPA 1">XI MIPA 1</option>
+                                            <option value="XI MIPA 2">XI MIPA 2</option>
+                                            <option value="XI MIPA 3">XI MIPA 3</option>
+                                            <option value="XI MIPA 4">XI MIPA 4</option>
+                                            <option value="XI MIPA 5">XI MIPA 5</option>
+                                            <option value="XI MIPA 6">XI MIPA 6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="filter-item">
+                                    <label>Tanggal Pertemuan</label>
+                                    <input type="date" id="input-tanggal-guru" class="form-control" onchange="renderGuruAbsensi()">
+                                </div>
+                                <button type="button" class="btn btn-success" style="width: 100%; padding: 8px;" onclick="setSemuaHadir()">
+                                    <i class="fa-solid fa-check-double"></i> Set Semua Hadir
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Rombel Kelas</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Username (USN)</th>
+                                        <th>Status Kehadiran Pertemuan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-absensi-guru"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Penilaian Guru -->
+                <div id="guru-tab-nilai" class="hidden">
+                    <div class="card">
+                        <div class="filter-banner">
+                            <div class="filter-header">
+                                <i class="fa-solid fa-filter"></i> FILTER INPUT PENILAIAN
+                            </div>
+                            <div class="filter-controls">
+                                <div class="filter-item">
+                                    <label>Rombel Kelas</label>
+                                    <select id="filter-kelas-nilai" class="form-control" onchange="renderGuruNilai()">
+                                        <option value="semua">Semua Rombel MIPA</option>
+                                        <option value="XI MIPA 1">XI MIPA 1</option>
+                                        <option value="XI MIPA 2">XI MIPA 2</option>
+                                        <option value="XI MIPA 3">XI MIPA 3</option>
+                                        <option value="XI MIPA 4">XI MIPA 4</option>
+                                        <option value="XI MIPA 5">XI MIPA 5</option>
+                                        <option value="XI MIPA 6">XI MIPA 6</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p style="font-size: 11px; color: var(--text-muted); font-weight: 700; margin-top: 4px;">
+                                📌 <b>Pembobotan Rata-Rata Akhir:</b> Hadir (5%) + UH (25%) + Tugas (35%) + PTS (15%) + PAS (20%)
+                            </p>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rombel Kelas</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Hadir (5%)</th>
+                                        <th>UH (25%)</th>
+                                        <th>Tugas (35%)</th>
+                                        <th>PTS (15%)</th>
+                                        <th>PAS (20%)</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-nilai-guru"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Kelola Tugas Guru -->
+                <div id="guru-tab-tugas" class="hidden">
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="filter-banner">
+                                <div class="filter-header">
+                                    <i class="fa-solid fa-filter"></i> FILTER KELOLA TUGAS
+                                </div>
+                                <div class="filter-controls">
+                                    <div class="filter-item">
+                                        <label>Target Rombel</label>
+                                        <select id="filter-kelas-tugas-guru" class="form-control" onchange="renderGuruTugas()">
+                                            <option value="semua">Semua Rombel</option>
+                                            <option value="XI MIPA 1">XI MIPA 1</option>
+                                            <option value="XI MIPA 2">XI MIPA 2</option>
+                                            <option value="XI MIPA 3">XI MIPA 3</option>
+                                            <option value="XI MIPA 4">XI MIPA 4</option>
+                                            <option value="XI MIPA 5">XI MIPA 5</option>
+                                            <option value="XI MIPA 6">XI MIPA 6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Target Rombel</th>
+                                            <th>Judul Tugas</th>
+                                            <th>Tenggat</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-tugas-guru"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card card-compact">
+                            <h3 style="font-weight: 800; font-size: 13px; margin-bottom: 8px;">Buat Penugasan Baru</h3>
+                            <form id="form-tugas" onsubmit="handleTambahTugas(event)">
+                                <div class="form-group">
+                                    <label>Target Rombel Kelas</label>
+                                    <select id="tugas-rombel" class="form-control" required>
+                                        <option value="Semua XI MIPA">Semua Rombel XI MIPA</option>
+                                        <option value="XI MIPA 1">XI MIPA 1</option>
+                                        <option value="XI MIPA 2">XI MIPA 2</option>
+                                        <option value="XI MIPA 3">XI MIPA 3</option>
+                                        <option value="XI MIPA 4">XI MIPA 4</option>
+                                        <option value="XI MIPA 5">XI MIPA 5</option>
+                                        <option value="XI MIPA 6">XI MIPA 6</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Judul Tugas / Praktikum</label>
+                                    <input type="text" id="tugas-judul" class="form-control" placeholder="Contoh: Praktikum Web HTML & CSS" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deskripsi / Instruksi Pengerjaan</label>
+                                    <textarea id="tugas-deskripsi" class="form-control" rows="2" placeholder="Tuliskan petunjuk pengerjaan..." required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Link Google Drive Acuan Guru (Opsional)</label>
+                                    <input type="url" id="tugas-drive-url" class="form-control" placeholder="https://drive.google.com/...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tenggat Waktu (Deadline)</label>
+                                    <input type="date" id="tugas-deadline" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Terbitkan Tugas</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Pemeriksaan Tugas Siswa -->
+                <div id="guru-tab-hasil-tugas" class="hidden">
+                    <div class="card">
+                        <div class="filter-banner">
+                            <div class="filter-header">
+                                <i class="fa-solid fa-filter"></i> FILTER HASIL TUGAS SISWA
+                            </div>
+                            <div class="filter-controls">
+                                <div class="filter-item">
+                                    <label>Rombel Kelas</label>
+                                    <select id="filter-kelas-hasil-tugas" class="form-control" onchange="renderGuruHasilTugas()">
+                                        <option value="semua">Semua Rombel MIPA</option>
+                                        <option value="XI MIPA 1">XI MIPA 1</option>
+                                        <option value="XI MIPA 2">XI MIPA 2</option>
+                                        <option value="XI MIPA 3">XI MIPA 3</option>
+                                        <option value="XI MIPA 4">XI MIPA 4</option>
+                                        <option value="XI MIPA 5">XI MIPA 5</option>
+                                        <option value="XI MIPA 6">XI MIPA 6</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rombel Kelas</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Judul Tugas</th>
+                                        <th>Nama File / Link</th>
+                                        <th>Waktu Unggah</th>
+                                        <th>Aksi Buka Berkas</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-hasil-tugas-guru"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Data Akun Siswa Guru -->
+                <div id="guru-tab-siswa" class="hidden">
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="filter-banner">
+                                <div class="filter-header">
+                                    <i class="fa-solid fa-filter"></i> FILTER DATA AKUN SISWA
+                                </div>
+                                <div class="filter-controls">
+                                    <div class="filter-item">
+                                        <label>Rombel Kelas</label>
+                                        <select id="filter-kelas-tabel" class="form-control" onchange="renderGuruSiswa()">
+                                            <option value="semua">Semua Rombel</option>
+                                            <option value="XI MIPA 1">XI MIPA 1</option>
+                                            <option value="XI MIPA 2">XI MIPA 2</option>
+                                            <option value="XI MIPA 3">XI MIPA 3</option>
+                                            <option value="XI MIPA 4">XI MIPA 4</option>
+                                            <option value="XI MIPA 5">XI MIPA 5</option>
+                                            <option value="XI MIPA 6">XI MIPA 6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Rombel</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Username (USN)</th>
+                                            <th>Password</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-siswa-guru"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="card card-compact" style="margin-bottom: 12px;">
+                                <h3 style="font-weight: 800; font-size: 13px; margin-bottom: 8px;">Tambah Akun Siswa</h3>
+                                <form onsubmit="handleTambahSiswa(event)">
+                                    <div class="form-group">
+                                        <label>Target Rombel Kelas</label>
+                                        <select id="siswa-kelas-baru" class="form-control" required>
+                                            <option value="XI MIPA 1">XI MIPA 1</option>
+                                            <option value="XI MIPA 2">XI MIPA 2</option>
+                                            <option value="XI MIPA 3">XI MIPA 3</option>
+                                            <option value="XI MIPA 4">XI MIPA 4</option>
+                                            <option value="XI MIPA 5">XI MIPA 5</option>
+                                            <option value="XI MIPA 6">XI MIPA 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nama Lengkap Siswa</label>
+                                        <input type="text" id="siswa-nama-baru" class="form-control" placeholder="Contoh: Rian Pratama" required>
+                                    </div>
+                                    <div class="grid-form-2">
+                                        <div class="form-group">
+                                            <label>Username (USN)</label>
+                                            <input type="text" id="siswa-usn-baru" class="form-control" placeholder="rianpratama" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="text" id="siswa-pass-baru" class="form-control" value="siswa123" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">+ Tambah Siswa</button>
+                                </form>
+                            </div>
+
+                            <div class="card card-compact">
+                                <h3 style="font-weight: 800; font-size: 13px; margin-bottom: 4px;">Import Banyak Nama</h3>
+                                <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">USN otomatis dari nama & Pass default: <b>siswa123</b>.</p>
+                                <form onsubmit="handleBulkTambahSiswa(event)">
+                                    <div class="form-group">
+                                        <label>Target Rombel Kelas</label>
+                                        <select id="bulk-siswa-kelas" class="form-control" required>
+                                            <option value="XI MIPA 1">XI MIPA 1</option>
+                                            <option value="XI MIPA 2">XI MIPA 2</option>
+                                            <option value="XI MIPA 3">XI MIPA 3</option>
+                                            <option value="XI MIPA 4">XI MIPA 4</option>
+                                            <option value="XI MIPA 5">XI MIPA 5</option>
+                                            <option value="XI MIPA 6">XI MIPA 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Daftar Nama (1 Nama Per Baris)</label>
+                                        <textarea id="bulk-siswa-nama" class="form-control" rows="3" placeholder="Daffa Ahmad&#10;Eka Rahmawati" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary" style="width: 100%;">+ Import Semua Siswa</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Kelola Jadwal Pelajaran oleh Guru -->
+                <div id="guru-tab-jadwal" class="hidden">
+                    <div class="grid-2">
+                        <div class="card">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                                <h3 style="font-weight: 800; font-size: 14px;">Jadwal Pelajaran Informatika</h3>
+                                <button onclick="resetJadwalDefault()" class="btn btn-secondary" style="font-size: 10px; padding: 4px 8px;">
+                                    <i class="fa-solid fa-rotate-left"></i> Reset ke Jadwal Gambar
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Hari</th>
+                                            <th>Rombel</th>
+                                            <th>Jam Pelajaran</th>
+                                            <th>Materi</th>
+                                            <th>Ruangan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-jadwal-guru"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card card-compact">
+                            <h3 style="font-weight: 800; font-size: 13px; margin-bottom: 8px;"><i class="fa-solid fa-calendar-plus" style="color:var(--primary);"></i> Tambah / Edit Jadwal</h3>
+                            <form id="form-jadwal-guru" onsubmit="handleTambahJadwal(event)">
+                                <div class="grid-form-2">
+                                    <div class="form-group">
+                                        <label>Hari</label>
+                                        <select id="jadwal-hari" class="form-control" required>
+                                            <option value="Senin">Senin</option>
+                                            <option value="Selasa">Selasa</option>
+                                            <option value="Rabu">Rabu</option>
+                                            <option value="Kamis">Kamis</option>
+                                            <option value="Jumat">Jumat</option>
+                                            <option value="Sabtu">Sabtu</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rombel</label>
+                                        <select id="jadwal-kelas" class="form-control" required>
+                                            <option value="XI MIPA 1">XI MIPA 1</option>
+                                            <option value="XI MIPA 2">XI MIPA 2</option>
+                                            <option value="XI MIPA 3">XI MIPA 3</option>
+                                            <option value="XI MIPA 4">XI MIPA 4</option>
+                                            <option value="XI MIPA 5">XI MIPA 5</option>
+                                            <option value="XI MIPA 6">XI MIPA 6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Jam Pelajaran</label>
+                                    <input type="text" id="jadwal-jam" class="form-control" placeholder="Contoh: 07.00 - 08.40 WIB" required>
+                                </div>
+                                <div class="grid-form-2">
+                                    <div class="form-group">
+                                        <label>Materi / Topik</label>
+                                        <input type="text" id="jadwal-mapel" class="form-control" value="Informatika" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ruangan / Lab</label>
+                                        <input type="text" id="jadwal-ruang" class="form-control" value="M2.03.013" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 4px;">+ Simpan Jadwal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Pengaturan Akun Guru -->
+                <div id="guru-tab-pengaturan" class="hidden">
+                    <div class="card card-compact" style="max-width: 380px; margin: 0 auto;">
+                        <h3 style="text-align: center; font-weight: 800; font-size: 14px;">Ubah Password Portal Guru</h3>
+                        <p style="font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">Perbarui password akses akun Guru Anda secara berkala.</p>
+                        <form onsubmit="handleUbahPassword(event)">
+                            <div class="form-group">
+                                <label>Password Saat Ini</label>
+                                <input type="password" id="pass-sekarang" class="form-control" placeholder="Masukkan password lama" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password Baru</label>
+                                <input type="password" id="pass-baru" class="form-control" placeholder="Masukkan password baru" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Konfirmasi Password Baru</label>
+                                <input type="password" id="pass-konfirmasi" class="form-control" placeholder="Ulangi password baru" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Simpan Password Baru</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- DASHBOARD SISWA -->
+            <div id="siswa-view" class="hidden">
+                
+                <!-- SELECTOR SEMESTER SISWA BANNER -->
+                <div class="filter-banner">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-graduation-cap" style="font-size: 18px; color: var(--primary);"></i>
+                        <div>
+                            <div style="font-size: 12px; font-weight: 800;">PORTAL BELAJAR KELAS XI</div>
+                            <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">Rombel Anda: <span id="label-rombel-siswa" class="badge badge-kelas"></span></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <label style="font-size: 10px; font-weight: 800; color: var(--text-muted);">SEMESTER:</label>
+                        <select id="siswa-semester-select" class="form-control" style="width: auto; font-weight: 800; padding: 4px 8px; font-size:11px;" onchange="renderSiswaSemuaData()">
+                            <option value="Semester 1">Semester 1 (Ganjil)</option>
+                            <option value="Semester 2">Semester 2 (Genap)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- HERO STATS & RING KEHADIRAN ANIMATION -->
+                <div class="dashboard-hero">
+                    <div class="attendance-ring-card">
+                        <div style="font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">PRESENSI KEHADIRAN</div>
+                        <div class="circle-chart">
+                            <svg>
+                                <circle class="circle-bg" cx="55" cy="55" r="45"></circle>
+                                <circle id="attendance-circle" class="circle-progress" cx="55" cy="55" r="45"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <div class="percent" id="ring-percent-text">0%</div>
+                                <div class="sub">16 Pertemuan</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 10px; font-weight: 700; color: var(--primary);" id="ring-detail-text">0 / 16 Pertemuan Hadir</div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--success-light); color: var(--success);"><i class="fa-solid fa-user-check"></i></div>
+                            <p>KEHADIRAN HADIR</p>
+                            <h3 id="siswa-stat-hadir">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--primary-light); color: var(--primary);"><i class="fa-solid fa-chart-line"></i></div>
+                            <p>RATA-RATA NILAI</p>
+                            <h3 id="siswa-stat-rata" style="color: var(--primary);">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon" style="background: var(--info-light); color: var(--info);"><i class="fa-solid fa-file-circle-check"></i></div>
+                            <p>TUGAS DIKIRIM</p>
+                            <h3 id="siswa-stat-tugas" style="color: var(--info);">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DROPDOWN MENU MOBILE SISWA -->
+                <div class="mobile-nav-select">
+                    <label style="font-size: 11px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                        <i class="fa-solid fa-compass"></i> NAVIGASI PORTAL SISWA:
+                    </label>
+                    <select id="siswa-mobile-select" class="form-control" onchange="handleMobileSelectNav('siswa', this.value)">
+                        <option value="absensi">📋 Riwayat Absensi Saya</option>
+                        <option value="nilai">📊 Rapor Nilai Saya</option>
+                        <option value="tugas">📌 Pengumpulan Tugas & Berkas</option>
+                        <option value="jadwal">📅 Jadwal Pelajaran Rombel Saya</option>
+                        <option value="pengaturan">🔒 Ubah Password Saya</option>
+                    </select>
+                </div>
+
+                <!-- TAB MENU LAPTOP SISWA -->
+                <div class="tabs-nav">
+                    <div class="tab-btn active" onclick="switchTab('siswa', 'absensi', this)">Absensi Saya</div>
+                    <div class="tab-btn" onclick="switchTab('siswa', 'nilai', this)">Nilai Saya</div>
+                    <div class="tab-btn" onclick="switchTab('siswa', 'tugas', this)">Pengumpulan Tugas</div>
+                    <div class="tab-btn" onclick="switchTab('siswa', 'jadwal', this)">Jadwal Pelajaran</div>
+                    <div class="tab-btn" onclick="switchTab('siswa', 'pengaturan', this)">Ubah Password Saya</div>
+                </div>
+
+                <!-- Tab Absensi Siswa -->
+                <div id="siswa-tab-absensi">
+                    <div class="card">
+                        <h3 style="text-align: center; font-weight: 800; margin-bottom: 4px; font-size: 14px;">Riwayat Kehadiran Informatika Saya</h3>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 14px;">Daftar presensi pada <span class="active-semester-text" style="font-weight: 800; color: var(--primary);">Semester 1</span> (Total Target 16 Pertemuan).</p>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal Pertemuan</th>
+                                        <th>Mata Pelajaran</th>
+                                        <th>Status Kehadiran</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-absensi-siswa"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Nilai Siswa -->
+                <div id="siswa-tab-nilai" class="hidden">
+                    <div class="card">
+                        <h3 style="text-align: center; font-weight: 800; margin-bottom: 4px; font-size: 14px;">Rapor Nilai Informatika Saya</h3>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 14px;">
+                            Bobot: Hadir <b>5%</b> + UH <b>25%</b> + Tugas <b>35%</b> + PTS <b>15%</b> + PAS <b>20%</b>.
+                        </p>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Skor Hadir (5%)</th>
+                                        <th>UH / Sumatif (25%)</th>
+                                        <th>Tugas (35%)</th>
+                                        <th>PTS (15%)</th>
+                                        <th>PAS (20%)</th>
+                                        <th>Nilai Rata-Rata Akhir</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-nilai-siswa"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Tugas Siswa -->
+                <div id="siswa-tab-tugas" class="hidden">
+                    <div class="card">
+                        <h3 style="text-align: center; font-weight: 800; margin-bottom: 4px; font-size: 14px;">Daftar Tugas & Pengumpulan Berkas</h3>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 14px;">Upload file tugas dari perangkat atau cantumkan Tautan Google Drive Anda.</p>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rombel Target</th>
+                                        <th>Judul Tugas</th>
+                                        <th>Instruksi</th>
+                                        <th>Tenggat</th>
+                                        <th>Kumpulkan File / Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-tugas-siswa"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Jadwal Khusus Kelas Siswa -->
+                <div id="siswa-tab-jadwal" class="hidden">
+                    <div class="card">
+                        <h3 style="text-align: center; font-weight: 800; margin-bottom: 4px; font-size: 14px;">Jadwal Pelajaran Rombel <span id="label-jadwal-rombel" style="color: var(--primary);"></span></h3>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 14px;">Menampilkan jadwal pelajaran Informatika khusus untuk rombel kelas Anda.</p>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Hari</th>
+                                        <th>Rombel</th>
+                                        <th>Jam Pelajaran</th>
+                                        <th>Mata Pelajaran</th>
+                                        <th>Ruangan / Lab</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-jadwal-siswa"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Ubah Password Mandiri oleh Siswa -->
+                <div id="siswa-tab-pengaturan" class="hidden">
+                    <div class="card card-compact" style="max-width: 380px; margin: 0 auto;">
+                        <h3 style="text-align: center; font-weight: 800; font-size: 14px;">Ubah Password Akun Saya</h3>
+                        <p style="font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">Silakan perbarui password akun Anda agar aman.</p>
+                        <form onsubmit="handleUbahPasswordSiswa(event)">
+                            <div class="form-group">
+                                <label>Password Saat Ini</label>
+                                <input type="password" id="siswa-pass-lama" class="form-control" placeholder="Masukkan password lama" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password Baru</label>
+                                <input type="password" id="siswa-pass-baru" class="form-control" placeholder="Masukkan password baru" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Konfirmasi Password Baru</label>
+                                <input type="password" id="siswa-pass-konfirmasi" class="form-control" placeholder="Ulangi password baru" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Simpan Password Baru</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <footer>
+            Copyright &copy; 2026 <b>Akhmad Azmi Rizkullah, S.Pd., M.Pd., Gr.</b> - Pengampu Mata Pelajaran Informatika.
+        </footer>
+    </div>
+
+    <script>
+        // DATA INITIALIZATION
+        const DEFAULT_STUDENTS = [
+            { id: '1', kelas: 'XI MIPA 1', name: 'Andi Saputra', usn: 'andisaputra', pass: 'siswa123' },
+            { id: '2', kelas: 'XI MIPA 2', name: 'Budi Santoso', usn: 'budisantoso', pass: 'siswa123' },
+            { id: '3', kelas: 'XI MIPA 3', name: 'Citra Dewi', usn: 'citradewi', pass: 'siswa123' },
+            { id: '4', kelas: 'XI MIPA 4', name: 'Doni Pratama', usn: 'donipratama', pass: 'siswa123' }
+        ];
+
+        // 12 JADWAL PERTEMUAN DARI GAMBAR TERTERA
+        const DEFAULT_SCHEDULES = [
+            { id: '1', hari: 'Senin', kelas: 'XI MIPA 1', jam: '07.00 - 08.40', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '2', hari: 'Senin', kelas: 'XI MIPA 3', jam: '08.40 - 10.20', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '3', hari: 'Senin', kelas: 'XI MIPA 5', jam: '10.20 - 12.00', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '4', hari: 'Selasa', kelas: 'XI MIPA 2', jam: '10.20 - 12.00', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '5', hari: 'Selasa', kelas: 'XI MIPA 4', jam: '13.00 - 14.40', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '6', hari: 'Selasa', kelas: 'XI MIPA 6', jam: '14.40 - 16.20', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '7', hari: 'Rabu', kelas: 'XI MIPA 5', jam: '07.00 - 08.40', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '8', hari: 'Rabu', kelas: 'XI MIPA 3', jam: '08.40 - 10.20', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '9', hari: 'Rabu', kelas: 'XI MIPA 1', jam: '10.20 - 12.00', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '10', hari: 'Jumat', kelas: 'XI MIPA 6', jam: '07.00 - 08.40', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '11', hari: 'Jumat', kelas: 'XI MIPA 4', jam: '08.40 - 10.20', mapel: 'Informatika', ruang: 'M2.03.013' },
+            { id: '12', hari: 'Jumat', kelas: 'XI MIPA 2', jam: '10.20 - 12.00', mapel: 'Informatika', ruang: 'M2.03.013' }
+        ];
+
+        let students = JSON.parse(localStorage.getItem('inf_students')) || DEFAULT_STUDENTS;
+        let attendance = JSON.parse(localStorage.getItem('inf_attendance')) || {};
+        let grades = JSON.parse(localStorage.getItem('inf_grades')) || {}; 
+        let assignments = JSON.parse(localStorage.getItem('inf_assignments')) || [
+            { id: '1', rombel: 'Semua XI MIPA', judul: 'Praktikum 1: HTML & CSS', deskripsi: 'Upload berkas HTML/CSS atau cantumkan Tautan Google Drive.', driveUrl: '', deadline: '2026-10-25' }
+        ];
+        let submissions = JSON.parse(localStorage.getItem('inf_submissions')) || {};
+        let schedules = JSON.parse(localStorage.getItem('inf_schedules')) || DEFAULT_SCHEDULES;
+        let guruPassword = localStorage.getItem('inf_guru_pass') || 'guru123';
+
+        let currentUser = null;
+
+        document.getElementById('input-tanggal-guru').valueAsDate = new Date();
+
+        function saveData() {
+            localStorage.setItem('inf_students', JSON.stringify(students));
+            localStorage.setItem('inf_attendance', JSON.stringify(attendance));
+            localStorage.setItem('inf_grades', JSON.stringify(grades));
+            localStorage.setItem('inf_assignments', JSON.stringify(assignments));
+            localStorage.setItem('inf_submissions', JSON.stringify(submissions));
+            localStorage.setItem('inf_schedules', JSON.stringify(schedules));
+            localStorage.setItem('inf_guru_pass', guruPassword);
+        }
+
+        function getSiswaHadirScore(sId, semester = 'Semester 1') {
+            let hadirCount = 0;
+            const maxPertemuan = 16;
+            Object.keys(attendance).forEach(k => {
+                if(k.startsWith(semester) && k.endsWith(`_${sId}`)) {
+                    if(attendance[k] === 'Hadir') hadirCount++;
+                }
+            });
+            return Math.min(Math.round((hadirCount / maxPertemuan) * 100), 100);
+        }
+
+        function switchRole(role) {
+            const btns = document.querySelectorAll('.role-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            document.getElementById('guru-alert').classList.add('hidden');
+            document.getElementById('siswa-alert').classList.add('hidden');
+
+            if(role === 'guru') {
+                btns[0].classList.add('active');
+                document.getElementById('form-guru').classList.remove('hidden');
+                document.getElementById('form-siswa').classList.add('hidden');
+            } else {
+                btns[1].classList.add('active');
+                document.getElementById('form-guru').classList.add('hidden');
+                document.getElementById('form-siswa').classList.remove('hidden');
+            }
+        }
+
+        function handleLoginGuru(e) {
+            e.preventDefault();
+            const inputPass = document.getElementById('guru-pass').value;
+            const alertBox = document.getElementById('guru-alert');
+            const alertText = document.getElementById('guru-alert-text');
+
+            if(inputPass === guruPassword) {
+                alertBox.classList.add('hidden');
+                currentUser = { role: 'guru', name: 'Akhmad Azmi Rizkullah, S.Pd., M.Pd., Gr.', usn: 'Guru' };
+                initDashboard();
+            } else {
+                alertText.innerText = 'Password salah!';
+                alertBox.classList.remove('hidden');
+            }
+        }
+
+        function handleLoginSiswa(e) {
+            e.preventDefault();
+            const usn = document.getElementById('siswa-usn').value.trim().toLowerCase();
+            const pass = document.getElementById('siswa-pass').value.trim();
+
+            const alertBox = document.getElementById('siswa-alert');
+            const alertText = document.getElementById('siswa-alert-text');
+
+            const studentByUsn = students.find(s => s.usn.toLowerCase() === usn);
+
+            if (!studentByUsn) {
+                alertText.innerText = 'Username tidak ditemukan!';
+                alertBox.classList.remove('hidden');
+            } else if (studentByUsn.pass !== pass) {
+                alertText.innerText = 'Password salah!';
+                alertBox.classList.remove('hidden');
+            } else {
+                alertBox.classList.add('hidden');
+                currentUser = { role: 'siswa', name: studentByUsn.name, usn: studentByUsn.usn, id: studentByUsn.id, kelas: studentByUsn.kelas };
+                initDashboard();
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('dashboard-screen').classList.add('hidden');
+        }
+
+        function initDashboard() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+
+            document.getElementById('user-name').innerText = currentUser.name;
+            document.getElementById('user-role').innerText = currentUser.role === 'guru' ? 'Guru Informatika' : `@${currentUser.usn} (${currentUser.kelas})`;
+
+            if(currentUser.role === 'guru') {
+                document.getElementById('guru-view').classList.remove('hidden');
+                document.getElementById('siswa-view').classList.add('hidden');
+                renderGuruAbsensi();
+                renderGuruNilai();
+                renderGuruTugas();
+                renderGuruHasilTugas();
+                renderGuruSiswa();
+                renderGuruJadwal();
+            } else {
+                document.getElementById('guru-view').classList.add('hidden');
+                document.getElementById('siswa-view').classList.remove('hidden');
+                document.getElementById('label-rombel-siswa').innerText = currentUser.kelas;
+                document.getElementById('label-jadwal-rombel').innerText = currentUser.kelas;
+                renderSiswaSemuaData();
+            }
+        }
+
+        function switchTab(view, tabName, el) {
+            const container = document.getElementById(`${view}-view`);
+            container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if(el) el.classList.add('active');
+
+            container.querySelectorAll('[id^="' + view + '-tab-"]').forEach(t => t.classList.add('hidden'));
+            document.getElementById(`${view}-tab-${tabName}`).classList.remove('hidden');
+        }
+
+        function handleMobileSelectNav(view, tabName) {
+            switchTab(view, tabName, null);
+        }
+
+        // --- GURU LOGIC ---
+        function renderGuruAbsensi() {
+            const date = document.getElementById('input-tanggal-guru').value;
+            const semester = document.getElementById('guru-semester-filter').value;
+            const filterKelas = document.getElementById('filter-kelas-absensi').value;
+            const tbody = document.getElementById('table-absensi-guru');
+            tbody.innerHTML = '';
+
+            let filteredStudents = students;
+            if(filterKelas !== 'semua') {
+                filteredStudents = students.filter(s => s.kelas === filterKelas);
+            }
+
+            filteredStudents.forEach((s, idx) => {
+                const key = `${semester}_${date}_${s.id}`;
+                const cur = attendance[key] || '';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center">${idx+1}</td>
+                    <td class="text-center"><span class="badge badge-kelas">${s.kelas}</span></td>
+                    <td class="text-left"><b>${s.name}</b></td>
+                    <td class="text-left" style="color: var(--text-muted); font-size: 11px;">${s.usn}</td>
+                    <td class="text-center">
+                        <div class="status-btn-group">
+                            ${['Hadir', 'Izin', 'Sakit', 'Alpa'].map(st => 
+                                `<button class="status-btn ${cur === st ? 'selected-'+st : ''}" onclick="setAttendance('${key}', '${st}')">${st}</button>`
+                            ).join(' ')}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function setSemuaHadir() {
+            const date = document.getElementById('input-tanggal-guru').value;
+            const semester = document.getElementById('guru-semester-filter').value;
+            const filterKelas = document.getElementById('filter-kelas-absensi').value;
+
+            let filteredStudents = students;
+            if(filterKelas !== 'semua') {
+                filteredStudents = students.filter(s => s.kelas === filterKelas);
+            }
+
+            filteredStudents.forEach(s => {
+                const key = `${semester}_${date}_${s.id}`;
+                attendance[key] = 'Hadir';
+            });
+
+            saveData();
+            renderGuruAbsensi();
+            alert('Semua siswa berhasil ditandai Hadir!');
+        }
+
+        function setAttendance(key, status) {
+            attendance[key] = status;
+            saveData();
+            renderGuruAbsensi();
+        }
+
+        function renderGuruNilai() {
+            const filterKelas = document.getElementById('filter-kelas-nilai').value;
+            const tbody = document.getElementById('table-nilai-guru');
+            tbody.innerHTML = '';
+
+            let filteredStudents = students;
+            if(filterKelas !== 'semua') {
+                filteredStudents = students.filter(s => s.kelas === filterKelas);
+            }
+
+            filteredStudents.forEach(s => {
+                const g = grades[s.id] || { uh: 0, tugas: 0, pts: 0, pas: 0 };
+                const scoreHadir = getSiswaHadirScore(s.id);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center"><span class="badge badge-kelas">${s.kelas}</span></td>
+                    <td class="text-left"><b>${s.name}</b></td>
+                    <td class="text-center"><span class="badge badge-success">${scoreHadir}%</span></td>
+                    <td class="text-center"><input type="number" id="uh_${s.id}" class="form-control" value="${g.uh}" style="width:55px; text-align:center; padding: 2px 4px;"></td>
+                    <td class="text-center"><input type="number" id="tugas_${s.id}" class="form-control" value="${g.tugas}" style="width:55px; text-align:center; padding: 2px 4px;"></td>
+                    <td class="text-center"><input type="number" id="pts_${s.id}" class="form-control" value="${g.pts}" style="width:55px; text-align:center; padding: 2px 4px;"></td>
+                    <td class="text-center"><input type="number" id="pas_${s.id}" class="form-control" value="${g.pas}" style="width:55px; text-align:center; padding: 2px 4px;"></td>
+                    <td class="text-center">
+                        <button class="btn btn-primary" style="padding: 4px 8px; font-size: 10px;" onclick="simpanNilai('${s.id}')">Simpan</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function simpanNilai(sId) {
+            grades[sId] = {
+                uh: parseFloat(document.getElementById(`uh_${sId}`).value) || 0,
+                tugas: parseFloat(document.getElementById(`tugas_${sId}`).value) || 0,
+                pts: parseFloat(document.getElementById(`pts_${sId}`).value) || 0,
+                pas: parseFloat(document.getElementById(`pas_${sId}`).value) || 0
+            };
+            saveData();
+            alert('Nilai berhasil disimpan!');
+        }
+
+        function renderGuruTugas() {
+            const filterKelas = document.getElementById('filter-kelas-tugas-guru').value;
+            const tbody = document.getElementById('table-tugas-guru');
+            tbody.innerHTML = '';
+
+            let filteredAssignments = assignments;
+            if(filterKelas !== 'semua') {
+                filteredAssignments = assignments.filter(a => a.rombel === 'Semua XI MIPA' || a.rombel === filterKelas);
+            }
+
+            filteredAssignments.forEach(a => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center"><span class="badge badge-kelas">${a.rombel}</span></td>
+                    <td class="text-left"><b>${a.judul}</b></td>
+                    <td class="text-center">${a.deadline}</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger" style="padding:2px 6px; font-size:10px;" onclick="hapusTugas('${a.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function handleTambahTugas(e) {
+            e.preventDefault();
+            assignments.push({
+                id: Date.now().toString(),
+                rombel: document.getElementById('tugas-rombel').value,
+                judul: document.getElementById('tugas-judul').value,
+                deskripsi: document.getElementById('tugas-deskripsi').value,
+                driveUrl: document.getElementById('tugas-drive-url').value,
+                deadline: document.getElementById('tugas-deadline').value
+            });
+            saveData();
+            renderGuruTugas();
+            document.getElementById('form-tugas').reset();
+            alert('Penugasan berhasil diterbitkan!');
+        }
+
+        function hapusTugas(id) {
+            assignments = assignments.filter(a => a.id !== id);
+            saveData();
+            renderGuruTugas();
+        }
+
+        function renderGuruHasilTugas() {
+            const filterKelas = document.getElementById('filter-kelas-hasil-tugas').value;
+            const tbody = document.getElementById('table-hasil-tugas-guru');
+            tbody.innerHTML = '';
+
+            let count = 0;
+            Object.keys(submissions).forEach(k => {
+                const sub = submissions[k];
+                const [aId, sId] = k.split('_');
+                const student = students.find(s => s.id === sId);
+                const assignment = assignments.find(a => a.id === aId);
+
+                if(student && assignment) {
+                    if(filterKelas === 'semua' || student.kelas === filterKelas) {
+                        count++;
+                        const isUrl = sub.fileData.startsWith('http://') || sub.fileData.startsWith('https://');
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="text-center"><span class="badge badge-kelas">${student.kelas}</span></td>
+                            <td class="text-left"><b>${student.name}</b></td>
+                            <td class="text-left">${assignment.judul}</td>
+                            <td class="text-left">${sub.fileName}</td>
+                            <td class="text-center">${sub.time}</td>
+                            <td class="text-center">
+                                <a href="${sub.fileData}" ${isUrl ? 'target="_blank"' : 'download="' + sub.fileName + '"'} class="btn btn-primary" style="padding: 3px 6px; font-size: 10px; text-decoration:none;">
+                                    <i class="fa-solid ${isUrl ? 'fa-external-link' : 'fa-download'}"></i> Buka
+                                </a>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                }
+            });
+
+            if(count === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 16px;">Belum ada siswa yang mengumpulkan tugas.</td></tr>';
+            }
+        }
+
+        function renderGuruSiswa() {
+            const filter = document.getElementById('filter-kelas-tabel').value;
+            const tbody = document.getElementById('table-siswa-guru');
+            tbody.innerHTML = '';
+
+            let list = students;
+            if(filter !== 'semua') list = students.filter(s => s.kelas === filter);
+
+            list.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center"><span class="badge badge-kelas">${s.kelas}</span></td>
+                    <td class="text-left"><b>${s.name}</b></td>
+                    <td class="text-left" style="color: var(--primary); font-weight:700;">${s.usn}</td>
+                    <td class="text-left" style="color: var(--text-muted); font-size:11px;">${s.pass}</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger" style="padding: 2px 6px; font-size: 10px;" onclick="hapusSiswa('${s.id}')"><i class="fa-solid fa-user-minus"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function handleTambahSiswa(e) {
+            e.preventDefault();
+            const kelas = document.getElementById('siswa-kelas-baru').value;
+            const name = document.getElementById('siswa-nama-baru').value.trim();
+            const usn = document.getElementById('siswa-usn-baru').value.trim().toLowerCase();
+            const pass = document.getElementById('siswa-pass-baru').value.trim();
+
+            if(students.some(s => s.usn.toLowerCase() === usn)) {
+                alert('Username (USN) tersebut sudah digunakan!');
+                return;
+            }
+
+            students.push({ id: Date.now().toString(), kelas, name, usn, pass });
+            saveData();
+            renderGuruSiswa();
+            renderGuruAbsensi();
+            renderGuruNilai();
+
+            document.getElementById('siswa-nama-baru').value = '';
+            document.getElementById('siswa-usn-baru').value = '';
+            alert('Akun Siswa Berhasil Ditambahkan!');
+        }
+
+        function handleBulkTambahSiswa(e) {
+            e.preventDefault();
+            const kelas = document.getElementById('bulk-siswa-kelas').value;
+            const rawText = document.getElementById('bulk-siswa-nama').value;
+            const names = rawText.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
+
+            if(names.length === 0) return alert('Silakan masukkan nama.');
+
+            names.forEach((name, index) => {
+                const cleanUsn = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                students.push({
+                    id: (Date.now() + index).toString(),
+                    kelas: kelas,
+                    name: name,
+                    usn: cleanUsn,
+                    pass: 'siswa123'
+                });
+            });
+
+            saveData();
+            renderGuruSiswa();
+            renderGuruAbsensi();
+            renderGuruNilai();
+            document.getElementById('bulk-siswa-nama').value = '';
+            alert(`${names.length} siswa berhasil ditambahkan ke ${kelas}!`);
+        }
+
+        function hapusSiswa(id) {
+            students = students.filter(s => s.id !== id);
+            saveData();
+            renderGuruSiswa();
+            renderGuruAbsensi();
+            renderGuruNilai();
+        }
+
+        function renderGuruJadwal() {
+            const tbody = document.getElementById('table-jadwal-guru');
+            tbody.innerHTML = '';
+
+            if (schedules.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color: var(--text-muted); padding: 12px;">Belum ada jadwal tersimpan.</td></tr>`;
+                return;
+            }
+
+            schedules.forEach(j => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center"><b>${j.hari}</b></td>
+                    <td class="text-center"><span class="badge badge-kelas">${j.kelas}</span></td>
+                    <td class="text-center">${j.jam}</td>
+                    <td class="text-left">${j.mapel}</td>
+                    <td class="text-center">${j.ruang}</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger" style="padding: 2px 6px; font-size:10px;" onclick="hapusJadwal('${j.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resetJadwalDefault() {
+            schedules = [...DEFAULT_SCHEDULES];
+            saveData();
+            renderGuruJadwal();
+            alert('Jadwal berhasil di-reset ke 12 jadwal utama!');
+        }
+
+        function handleTambahJadwal(e) {
+            e.preventDefault();
+            
+            const newSchedule = {
+                id: Date.now().toString(),
+                hari: document.getElementById('jadwal-hari').value,
+                kelas: document.getElementById('jadwal-kelas').value,
+                jam: document.getElementById('jadwal-jam').value.trim(),
+                mapel: document.getElementById('jadwal-mapel').value.trim(),
+                ruang: document.getElementById('jadwal-ruang').value.trim()
+            };
+
+            schedules.push(newSchedule);
+            saveData();
+            renderGuruJadwal();
+            document.getElementById('form-jadwal-guru').reset();
+            alert('Jadwal pelajaran berhasil disimpan!');
+        }
+
+        function hapusJadwal(id) {
+            schedules = schedules.filter(j => j.id !== id);
+            saveData();
+            renderGuruJadwal();
+        }
+
+        function handleUbahPassword(e) {
+            e.preventDefault();
+            const cur = document.getElementById('pass-sekarang').value;
+            const newP = document.getElementById('pass-baru').value;
+            const confP = document.getElementById('pass-konfirmasi').value;
+
+            if(cur !== guruPassword) return alert('Password saat ini salah!');
+            if(newP !== confP) return alert('Konfirmasi password tidak cocok!');
+
+            guruPassword = newP;
+            saveData();
+            alert('Password Guru berhasil diperbarui!');
+            e.target.reset();
+        }
+
+        // --- SISWA LOGIC ---
+        function renderSiswaSemuaData() {
+            const sem = document.getElementById('siswa-semester-select').value;
+            document.querySelectorAll('.active-semester-text').forEach(el => el.innerText = sem);
+            
+            renderSiswaAbsensi();
+            renderSiswaNilai();
+            renderSiswaTugas();
+            renderSiswaJadwal();
+        }
+
+        function renderSiswaAbsensi() {
+            const sem = document.getElementById('siswa-semester-select').value;
+            const tbody = document.getElementById('table-absensi-siswa');
+            tbody.innerHTML = '';
+            let hadirCount = 0;
+
+            Object.keys(attendance).forEach(k => {
+                if(k.startsWith(sem) && k.endsWith(`_${currentUser.id}`)) {
+                    const parts = k.split('_');
+                    const date = parts[1];
+                    const st = attendance[k];
+                    if(st === 'Hadir') hadirCount++;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="text-center">${date}</td>
+                        <td class="text-left"><b>Informatika (${sem})</b></td>
+                        <td class="text-center"><span class="badge badge-success">${st}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+
+            document.getElementById('siswa-stat-hadir').innerText = hadirCount;
+            updateAttendanceRing(hadirCount);
+        }
+
+        function updateAttendanceRing(hadirCount) {
+            const maxPertemuan = 16;
+            const percentage = Math.min(Math.round((hadirCount / maxPertemuan) * 100), 100);
+            
+            const circle = document.getElementById('attendance-circle');
+            const circumference = 2 * Math.PI * 45;
+            const offset = circumference - (percentage / 100) * circumference;
+
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+            }, 100);
+
+            document.getElementById('ring-percent-text').innerText = `${percentage}%`;
+            document.getElementById('ring-detail-text').innerText = `${hadirCount} / ${maxPertemuan} Pertemuan Hadir`;
+        }
+
+        function renderSiswaNilai() {
+            const sem = document.getElementById('siswa-semester-select').value;
+            const tbody = document.getElementById('table-nilai-siswa');
+            tbody.innerHTML = '';
+            
+            const g = grades[currentUser.id] || { uh: 0, tugas: 0, pts: 0, pas: 0 };
+            const scoreHadir = getSiswaHadirScore(currentUser.id, sem);
+
+            const avg = (
+                (scoreHadir * 0.05) +
+                (g.uh * 0.25) +
+                (g.tugas * 0.35) +
+                (g.pts * 0.15) +
+                (g.pas * 0.20)
+            ).toFixed(1);
+
+            document.getElementById('siswa-stat-rata').innerText = avg;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="text-center"><span class="badge badge-success">${scoreHadir}%</span></td>
+                <td class="text-center">${g.uh}</td>
+                <td class="text-center">${g.tugas}</td>
+                <td class="text-center">${g.pts}</td>
+                <td class="text-center">${g.pas}</td>
+                <td class="text-center"><b style="color: var(--primary); font-size:15px;">${avg}</b></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function renderSiswaTugas() {
+            const tbody = document.getElementById('table-tugas-siswa');
+            tbody.innerHTML = '';
+            let dikirimCount = 0;
+
+            const filteredAssignments = assignments.filter(a => a.rombel === 'Semua XI MIPA' || a.rombel === currentUser.kelas);
+
+            filteredAssignments.forEach(a => {
+                const subKey = `${a.id}_${currentUser.id}`;
+                const hasSub = submissions[subKey];
+                if(hasSub) dikirimCount++;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center"><span class="badge badge-kelas">${a.rombel}</span></td>
+                    <td class="text-left"><b>${a.judul}</b></td>
+                    <td class="text-left">
+                        ${a.deskripsi}
+                        ${a.driveUrl ? `<br><a href="${a.driveUrl}" target="_blank" style="color:var(--primary); font-size:11px; font-weight:700;"><i class="fa-brands fa-google-drive"></i> Link Acuan Drive Guru</a>` : ''}
+                    </td>
+                    <td class="text-center">${a.deadline}</td>
+                    <td class="text-center">
+                        ${hasSub 
+                            ? `<span class="badge badge-success"><i class="fa-solid fa-check"></i> Terkirim (${hasSub.fileName})</span>`
+                            : `<div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+                                <input type="file" id="file_${a.id}" class="form-control" style="font-size:10px; padding:2px 4px;">
+                                <input type="url" id="link_${a.id}" placeholder="Atau paste Link Drive..." class="form-control" style="font-size:10px; padding:2px 4px;">
+                                <button class="btn btn-primary" style="padding:4px 8px; font-size:10px;" onclick="uploadTugasSiswa('${a.id}')">Kirim Berkas / Link</button>
+                               </div>`
+                        }
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            document.getElementById('siswa-stat-tugas').innerText = dikirimCount;
+        }
+
+        function uploadTugasSiswa(aId) {
+            const fileInput = document.getElementById(`file_${aId}`);
+            const linkInput = document.getElementById(`link_${aId}`).value.trim();
+
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    submissions[`${aId}_${currentUser.id}`] = {
+                        fileName: file.name,
+                        fileData: e.target.result,
+                        time: new Date().toLocaleString()
+                    };
+                    saveData();
+                    renderSiswaTugas();
+                    alert('File tugas berhasil diunggah!');
+                };
+                reader.readAsDataURL(file);
+            } else if(linkInput !== '') {
+                submissions[`${aId}_${currentUser.id}`] = {
+                    fileName: 'Tautan Google Drive',
+                    fileData: linkInput,
+                    time: new Date().toLocaleString()
+                };
+                saveData();
+                renderSiswaTugas();
+                alert('Tautan Drive berhasil dikirim!');
+            } else {
+                alert('Pilih file dari perangkat atau masukkan Tautan Google Drive!');
+            }
+        }
+
+        function renderSiswaJadwal() {
+            const tbody = document.getElementById('table-jadwal-siswa');
+            tbody.innerHTML = '';
+
+            const list = schedules.filter(j => j.kelas === currentUser.kelas);
+
+            if(list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color: var(--text-muted); padding: 16px;">Belum ada jadwal pelajaran untuk rombel kelas <b>${currentUser.kelas}</b>.</td></tr>`;
+                return;
+            }
+
+            list.forEach(j => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center"><b>${j.hari}</b></td>
+                    <td class="text-center"><span class="badge badge-kelas">${j.kelas}</span></td>
+                    <td class="text-center">${j.jam}</td>
+                    <td class="text-left">${j.mapel}</td>
+                    <td class="text-center">${j.ruang}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function handleUbahPasswordSiswa(e) {
+            e.preventDefault();
+            const passLama = document.getElementById('siswa-pass-lama').value;
+            const passBaru = document.getElementById('siswa-pass-baru').value;
+            const passKonf = document.getElementById('siswa-pass-konfirmasi').value;
+
+            const idx = students.findIndex(s => s.id === currentUser.id);
+            if(idx !== -1) {
+                if(students[idx].pass !== passLama) return alert('Password lama Anda salah!');
+                if(passBaru !== passKonf) return alert('Konfirmasi password tidak cocok!');
+
+                students[idx].pass = passBaru;
+                saveData();
+                alert('Password Anda berhasil diperbarui!');
+                e.target.reset();
+            }
+        }
+    </script>
+</body>
+</html>
